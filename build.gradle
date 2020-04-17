@@ -4,6 +4,10 @@ apply plugin: 'maven-publish'
 group = pluginGroup
 version = pluginVersion
 
+if(System.getenv("BUILD_NUMBER") != null)
+    pluginVersion += "." + System.getenv("BUILD_NUMBER")
+version = pluginVersion
+
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
 sourceCompatibility = '1.8'
@@ -45,10 +49,17 @@ task javadocJar(type: Jar, dependsOn: 'javadoc') {
     classifier 'javadoc'
 }
 
+task publishJar(type: Jar, dependsOn: ['classes', 'processResources']) {
+    from("${buildDir}/classes/java/main") {
+        exclude '**/plugin.yml'
+    }
+    from "${buildDir}/resources/main/plugin.yml"
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact jar
+            artifact publishJar
             artifact sourcesJar
             artifact javadocJar
         }

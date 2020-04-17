@@ -86,6 +86,7 @@ public final class LongUIS extends JavaPlugin implements Listener
     
     /**
      * 向客户端的Long UI发包并调用客户端的js回调函数
+     * 客户端的js回调函数需要在客户端的js函数luiScreenInit中使用addPacketReceiver来注册
      *
      * @param player 玩家实例
      * @param plugin 发包的插件实例
@@ -104,8 +105,12 @@ public final class LongUIS extends JavaPlugin implements Listener
     
     /**
      * 注册接受包的回调函数
+     * 请注意，回调函数调用的线程并非主线程
+     * 在回调函数内请注意线程安全
+     * 可以使用 Bukkit.getScheduler().runTask(Plugin ,Runnable ) 来添加主线程任务
      *
-     * @param plugin 插件实例
+     * @param plugin   插件实例
+     * @param receiver 接受包的回调函数
      */
     public static void registerPacketReceiver(Plugin plugin, IPacketReceiver receiver)
     {
@@ -125,6 +130,15 @@ public final class LongUIS extends JavaPlugin implements Listener
     
     public interface IPacketReceiver
     {
+        /**
+         * 接受包的回调函数
+         * 请注意该方法不在主线程执行！
+         * 在回调函数内请注意线程安全
+         * 可以使用 Bukkit.getScheduler().runTask(Plugin ,Runnable ) 来添加主线程任务
+         *
+         * @param element 客户端发的json，格式任意
+         * @param player 客户端对应的玩家
+         */
         void callback(JsonElement element, Player player);
     }
     

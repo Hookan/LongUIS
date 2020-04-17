@@ -35,3 +35,32 @@ dependencies {
 
 如果你既不用 gradle 也不用 maven ，那请你从上方的 LongUIS 下载地址下载最新的 LongUIS 及其源码，然后导入你的 IDE 。
 
+然后在你的 `plugin.yml` 中添加
+
+```yaml
+depend: [LongUIS]
+```
+
+LongUIS 提供了以下几个方法用于和客户端交互：
+* `LongUIS#openGui((Player player, JsonElement gui)`
+  
+  在客户端打开一个LongUI GUI，gui的json格式与LongUI的MainMenu.json相同
+* `LongUIS#sendPacket(Player player, Plugin plugin, JsonElement value)`
+  
+  对指定的player发送一个json包，json的格式任意
+* `LongUIS#registerPacketReceiver(Plugin plugin, IPacketReceiver receiver)`
+  
+  注册接受包的回调函数
+* `LongUIS#unregisterPacketReceiver(Plugin plugin)`
+  
+  注销接受包的回调函数
+  
+本插件还添加了一个指令 `/luiopengui` （可简写为 `/luiopen` 或 `/lopen`）
+
+使用时需要权限 `lui.use` 。
+
+使用说明：
+
+`/luiopengui <玩家名称> <LUI gui json>`
+
+玩家名称暂不支持 @a @p 等，LUI gui json与MainMenu.json格式相同
