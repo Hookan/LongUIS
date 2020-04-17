@@ -1,0 +1,10 @@
+name: LongUIS
+version: @version@
+main: qwq.cafe.longuis.LongUIS
+api-version: 1.13
+authors: [hookan]
+commands:
+  luiopengui:
+    description: Open a LongUI GUI at client.
+    permission: lui.use
+    aliases: [luiopen,lopen]

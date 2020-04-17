@@ -1,0 +1,61 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+group = pluginGroup
+version = pluginVersion
+
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+        maven {
+            name = 'spigotmc-repo'
+            url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+        }
+
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
+    implementation 'io.netty:netty-all:4.1.25.Final'
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+processResources {
+    from(sourceSets.main.allSource) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier 'sources'
+}
+
+task javadocJar(type: Jar, dependsOn: 'javadoc') {
+    from "${buildDir}/docs/javadoc"
+    classifier 'javadoc'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            url 'file:///' + System.getenv('NATIVE_MAVEN_PATH')
+        }
+    }
+}
