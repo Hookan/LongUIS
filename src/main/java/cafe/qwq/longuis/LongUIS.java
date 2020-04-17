@@ -1,4 +1,4 @@
-package qwq.cafe.longuis;
+package cafe.qwq.longuis;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

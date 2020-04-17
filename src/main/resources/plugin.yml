@@ -1,6 +1,6 @@
 name: LongUIS
 version: @version@
-main: qwq.cafe.longuis.LongUIS
+main: cafe.qwq.longuis.LongUIS
 api-version: 1.13
 authors: [hookan]
 commands:
