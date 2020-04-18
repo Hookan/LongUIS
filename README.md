@@ -42,7 +42,7 @@ depend: [LongUIS]
 ```
 
 LongUIS 提供了以下几个方法用于和客户端交互：
-* `LongUIS#openGui((Player player, JsonElement gui)`
+* `LongUIS#openGui(Player player, JsonElement gui)`
   
   在客户端打开一个LongUI GUI，gui的json格式与LongUI的MainMenu.json相同
 * `LongUIS#sendPacket(Player player, Plugin plugin, JsonElement value)`

@@ -53,7 +53,7 @@ public final class LongUIS extends JavaPlugin implements Listener
         messenger.unregisterOutgoingPluginChannel(this, channel);
     }
     
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event)
     {
         Player player = event.getPlayer();
