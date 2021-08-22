@@ -8,7 +8,7 @@ commands:
     description: Open a LongUI GUI at client.
     permission: lui.use
     aliases: [luiopen,lopen]
- permissions:
-   lui.use:
-     description: The permission used to open a GUI for a player.
-     default: op
+permissions:
+  lui.use:
+    description: The permission used to open a GUI for a player.
+    default: op
